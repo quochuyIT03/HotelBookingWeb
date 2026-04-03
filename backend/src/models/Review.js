@@ -18,6 +18,10 @@ const reviewSchema = new mongoose.Schema(
             max: 5, 
             required: true
         }, 
+        isPinned: {
+            type: Boolean, 
+            default: false
+        },
         comment: String
     }, 
     {timestamps: true}

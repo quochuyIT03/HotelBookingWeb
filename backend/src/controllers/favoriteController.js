@@ -2,7 +2,7 @@ import Favorite from "../models/Favorite.js";
 
 export const getAllFavoriteHotel = async (req, res) => {
   try {
-    const getAllFavorite = await Favorite.find();
+    const getAllFavorite = await Favorite.find().populate("hotel");
     res.status(200).json({
       success: true,
       count: getAllFavorite.length,

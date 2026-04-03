@@ -28,7 +28,7 @@ const roomSchema = new mongoose.Schema(
         unavailableDates: [Date],
       },
     ],
-
+    
     hotel: {
       type: mongoose.Schema.Types.ObjectId,
       ref: "Hotel",

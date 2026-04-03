@@ -1,24 +1,39 @@
-import express from 'express'
-import { addNewHotel, countHotelByCity, deleteHotel, getAllHotel, getAvailableRoomsByHotel, getOneHotel, searchHotels, updateHotel } from '../controllers/hotelController.js';
-import { authorizedRoles } from "../middlewares/authorizedRoles.js";
+import express from "express";
+import {
+  addNewHotel,
+  countHotelByCity,
+  deleteHotel,
+  getAllHotel,
+  getAvailableRoomsByHotel,
+  getHotels,
+  getOneHotel,
+  getTopRatedHotels,
+  searchHotels,
+  updateHotel,
+} from "../controllers/hotelController.js";
+import {uploadHotelImages} from '../middlewares/multer.js'
 
-const router = express.Router(); 
+const router = express.Router();
 
-router.get("/search", searchHotels)
+router.get("/search", searchHotels);
 
-router.get("/countHotelByCity", countHotelByCity)
+router.get("/countHotelByCity", countHotelByCity);
 
-router.get("/", getAllHotel)
+router.get("/top-rated", getTopRatedHotels);
 
-router.post("/", authorizedRoles("admin", "superadmin"), addNewHotel)
+router.get("/", getAllHotel);
 
-router.get("/:id", getOneHotel)
+router.get("/", getHotels);
 
-router.get("/:id/available-rooms", getAvailableRoomsByHotel)
+router.post("/", uploadHotelImages, addNewHotel)
 
-router.put("/:id", updateHotel)
+router.get("/:id", getOneHotel);
 
-router.delete("/:id", deleteHotel)
+router.get("/:id/available-rooms", getAvailableRoomsByHotel);
+
+router.put("/:id", uploadHotelImages, updateHotel);
+
+router.delete("/:id", deleteHotel);
 
 
 

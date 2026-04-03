@@ -20,7 +20,7 @@ const hotelSchema = new mongoose.Schema(
     country: {
       type: String,
     },
-    images: [
+    image: [
       {
         type: String,
       },

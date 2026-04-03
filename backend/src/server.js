@@ -9,12 +9,41 @@ import favoriteRoute from './routes/favoriteRoute.js'
 import paymentRoute from './routes/paymentRoute.js'
 import { connectDatabase } from "./config/db.js";
 import dotenv from 'dotenv'
+import cors from 'cors'
+import { cloudinary } from "./config/cloudinary.js";
 
 dotenv.config();
+
+// cloudinary.uploader dùng để test cloudinary
+//   .upload("https://res.cloudinary.com/demo/image/upload/sample.jpg")
+//   .then((res) => {
+//     console.log("✅ CLOUDINARY OK:", res.secure_url);
+//   })
+//   .catch((err) => {
+//     console.log("❌ CLOUDINARY ERROR:", err);
+//   });
+
 const app = express(); 
+
+// middlewares
+app.use(cors({
+  origin: "*",
+  credentials: true
+}));
+
 const PORT = process.env.PORT || 5001;
 
-app.use(express.json());
+app.use(express.json({ limit: "10mb" }));
+app.use(express.urlencoded({ limit: "10mb", extended: true }))
+
+// Connect tới Database 
+connectDatabase().then(() => {
+    app.listen(PORT, () => {
+    console.log(`Server load on port: %s`, PORT); 
+})
+})
+
+
 
 app.use("/api/users", userRoute);
 
@@ -32,8 +61,12 @@ app.use("/api/favorites", favoriteRoute);
 
 app.use("/api/payments", paymentRoute);
 
-connectDatabase().then(() => {
-    app.listen(PORT, () => {
-    console.log(`Server load on port: %s`, PORT); 
-})
-})
+app.use((err, req, res, next) => {
+  console.error("🔥 REAL ERROR:", err);
+
+  res.status(500).json({
+    success: false,
+    message: err.message,
+    full: err
+  });
+});

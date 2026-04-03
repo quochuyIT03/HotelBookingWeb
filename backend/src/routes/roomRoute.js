@@ -1,5 +1,5 @@
 import express from 'express'
-import { addNewRoom, checkRoomAvailability, deleteRoom, getAllRooms, getBookedRooms, getRoomByHotel, updateRoom } from '../controllers/roomController.js';
+import { addNewRoom, checkRoomAvailability, deleteRoom, getAllRooms, getBookedRooms, getOneRoom, getRoomByHotel, updateRoom } from '../controllers/roomController.js';
 
 const router = express.Router(); 
 
@@ -10,6 +10,8 @@ router.post("/", addNewRoom)
 router.post("/check-availability", checkRoomAvailability)
 
 router.get("/hotels/:id", getRoomByHotel)
+
+router.get("/:id", getOneRoom)
 
 router.put("/:id", updateRoom)
 

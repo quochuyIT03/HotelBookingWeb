@@ -37,6 +37,29 @@ export const getRoomByHotel = async (req, res) => {
   }
 };
 
+export const getOneRoom = async (req, res) => {
+  try {
+    const room = await Room.findById(req.params.id).populate("hotel");
+
+    if (!room) {
+      return res.status(404).json({
+        success: false,
+        message: "Room không tồn tại",
+      });
+    }
+
+    res.status(200).json({
+      success: true,
+      data: room,
+    });
+  } catch (error) {
+    res.status(500).json({
+      success: false,
+      message: error.message,
+    });
+  }
+};
+
 export const addNewRoom = async (req, res) => {
   try {
     const { roomtype, description, price, maxPeople, roomNumbers, hotel } =

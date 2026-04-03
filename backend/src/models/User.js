@@ -19,6 +19,10 @@ const userSchema = new mongoose.Schema(
       required: true,
       trim: true,
     },
+    avatar: {
+      type: String,
+      default: "",
+    },
     profile: {
       fullname: {
         type: String,
@@ -30,10 +34,6 @@ const userSchema = new mongoose.Schema(
         trim: true,
       },
 
-      avatarUrl: {  
-        type: String,
-        default: "",
-      },
       phone: {
         type: String,
         trim: true,
