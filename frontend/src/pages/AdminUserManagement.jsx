@@ -20,7 +20,7 @@ const AdminUserManagement = () => {
   // 🔥 FETCH DATA
   const fetchData = async () => {
     try {
-      const res = await fetch("http://localhost:5001/api/users");
+      const res = await fetch(`${window.BASE_URL}/users`);
       const data = await res.json();
       setUsers(data.data);
     } catch (error) {
@@ -65,7 +65,7 @@ const AdminUserManagement = () => {
     if (!window.confirm("Xác nhận xóa người dùng này?")) return;
 
     try {
-      const res = await fetch(`http://localhost:5001/api/users/${id}`, { method: "DELETE" });
+      const res = await fetch(`${window.BASE_URL}/users/${id}`, { method: "DELETE" });
       if (res.ok) {
         setUsers((prev) => prev.filter((u) => u._id !== id));
         toast.success("Đã xóa user");
@@ -93,8 +93,8 @@ const AdminUserManagement = () => {
       else if (mode === "edit") data.append("avatar", formData.avatar);
 
       const url = mode === "edit" 
-        ? `http://localhost:5001/api/users/${selectedUser._id}` 
-        : `http://localhost:5001/api/users`;
+        ? `${window.BASE_URL}/users/${selectedUser._id}` 
+        : `${window.BASE_URL}/users`;
 
       const res = await fetch(url, {
         method: mode === "edit" ? "PUT" : "POST",

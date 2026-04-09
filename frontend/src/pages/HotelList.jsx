@@ -16,7 +16,7 @@ const HotelList = () => {
       setLoading(true);
       try {
         // Gọi đến đúng route search bạn vừa tạo ở Backend
-        const res = await fetch(`http://localhost:5001/api/hotels/searchHotel?city=${city}`);
+        const res = await fetch(`${window.BASE_URL}/hotels/searchHotel?city=${city}`);
         const data = await res.json();
         setHotels(data);
       } catch (error) {

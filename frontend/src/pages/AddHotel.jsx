@@ -36,7 +36,7 @@ const AddHotel = () => {
         if (img) formData.append(`image${index + 1}`, img);
       });
 
-      const res = await fetch("http://localhost:5001/api/hotels", {
+      const res = await fetch(`${window.BASE_URL}/hotels`, {
         method: "POST",
         body: formData,
       });

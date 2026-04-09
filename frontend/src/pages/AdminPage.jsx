@@ -23,9 +23,9 @@ const AdminPage = () => {
     const fetchAllData = async () => {
       try {
         const [hotelRes, bookingRes, userRes] = await Promise.all([
-          fetch("http://localhost:5001/api/hotels"),
-          fetch("http://localhost:5001/api/bookings"),
-          fetch("http://localhost:5001/api/users"),
+          fetch(`${window.BASE_URL}/hotels`),
+          fetch(`${window.BASE_URL}/bookings`),
+          fetch(`${window.BASE_URL}/users`),
         ]);
         const hotelData = await hotelRes.json();
         const bookingData = await bookingRes.json();

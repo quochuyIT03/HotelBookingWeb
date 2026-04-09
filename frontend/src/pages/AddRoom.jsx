@@ -29,7 +29,7 @@ const AddRoom = () => {
 
   // 🔥 Lấy thông tin hotel để hiển thị tiêu đề cho thân thiện
   useEffect(() => {
-    fetch(`http://localhost:5001/api/hotels/${id}`)
+    fetch(`${window.BASE_URL}/hotels/${id}`)
       .then((res) => res.json())
       .then((data) => setHotel(data.data));
   }, [id]);
@@ -55,7 +55,7 @@ const AddRoom = () => {
     };
 
     try {
-      const res = await fetch("http://localhost:5001/api/rooms", {
+      const res = await fetch(`${window.BASE_URL}/rooms`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(payload),

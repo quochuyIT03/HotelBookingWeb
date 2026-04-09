@@ -33,7 +33,7 @@ const EditRoom = () => {
   useEffect(() => {
     const fetchRoom = async () => {
       try {
-        const res = await fetch(`http://localhost:5001/api/rooms/${id}`);
+        const res = await fetch(`${window.BASE_URL}/rooms/${id}`);
         const data = await res.json();
         if (data.success) {
           const room = data.data;
@@ -75,7 +75,7 @@ const EditRoom = () => {
     };
 
     try {
-      const res = await fetch(`http://localhost:5001/api/rooms/${id}`, {
+      const res = await fetch(`${window.BASE_URL}/rooms/${id}`, {
         method: "PUT",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(payload),

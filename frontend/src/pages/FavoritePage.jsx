@@ -20,7 +20,7 @@ const FavoritePage = () => {
     setLoading(true);
     try {
       // Lưu ý: Nếu Backend của ông chưa lọc theo User, hãy truyền query hoặc header nhé
-      const res = await fetch("http://localhost:5001/api/favorites");
+      const res = await fetch(`${window.BASE_URL}/favorites`);
       const result = await res.json();
       
       if (result.success) {
@@ -48,7 +48,7 @@ const removeFavorite = async (hotelId) => {
   // Hoặc dùng cách đơn giản bên dưới:
 
   try {
-    const res = await fetch("http://localhost:5001/api/favorites/toggle", {
+    const res = await fetch(`${window.BASE_URL}/favorites/toggle`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ user: userId, hotel: hotelId }),

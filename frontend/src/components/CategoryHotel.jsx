@@ -16,7 +16,7 @@ const CategoryHotel = () => {
   useEffect(() => {
     const fetchTopHotels = async () => {
       try {
-        const res = await axios.get("http://localhost:5001/api/hotels/top-rated");
+        const res = await axios.get(`${window.BASE_URL}/hotels/top-rated`);
         if (res.data.success) {
           setHotels(res.data.data);
         }

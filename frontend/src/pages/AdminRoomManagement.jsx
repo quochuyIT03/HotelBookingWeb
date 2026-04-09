@@ -40,8 +40,8 @@ const AdminRoomManagement = () => {
   useEffect(() => {
     // Fetch hotels & rooms song song cho nhanh
     Promise.all([
-      fetch("http://localhost:5001/api/hotels").then(res => res.json()),
-      fetch("http://localhost:5001/api/rooms").then(res => res.json())
+      fetch(`${window.BASE_URL}/hotels`).then(res => res.json()),
+      fetch(`${window.BASE_URL}/rooms`).then(res => res.json())
     ]).then(([hotelsData, roomsData]) => {
       setHotels(hotelsData.data || []);
       setRooms(roomsData.data || []);
@@ -72,7 +72,7 @@ const AdminRoomManagement = () => {
         label: "Xác nhận",
         onClick: async () => {
           try {
-            await fetch(`http://localhost:5001/api/rooms/${id}`, { method: "DELETE" });
+            await fetch(`${window.BASE_URL}/rooms/${id}`, { method: "DELETE" });
             setRooms((prev) => prev.filter((r) => r._id !== id));
             toast.success("Đã xóa hạng phòng!");
           } catch (error) {

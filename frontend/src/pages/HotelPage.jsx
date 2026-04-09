@@ -29,7 +29,7 @@ const HotelPage = () => {
   const fetchHotels = async () => {
     setLoading(true);
     try {
-      const res = await fetch("http://localhost:5001/api/hotels");
+      const res = await fetch(`${window.BASE_URL}/hotels`);
       const data = await res.json();
       setHotels(data.data || []);
     } catch (error) {
@@ -43,7 +43,7 @@ const HotelPage = () => {
   const fetchUserFavorites = async () => {
     if (!userId) return;
     try {
-      const res = await fetch("http://localhost:5001/api/favorites");
+      const res = await fetch(`${window.BASE_URL}/favorites`);
       const result = await res.json();
       if (result.success) {
         // Lọc lấy các ID hotel đã thích của user hiện tại
@@ -72,7 +72,7 @@ const toggleFavorite = async (id) => {
   }
 
   try {
-    const res = await fetch("http://localhost:5001/api/favorites/toggle", {
+    const res = await fetch(`${window.BASE_URL}/favorites/toggle`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ user: userId, hotel: id }),

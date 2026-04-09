@@ -49,13 +49,13 @@ const HotelDetails = () => {
       try {
         setLoading(true);
         const urls = [
-          `http://localhost:5001/api/hotels/${id}`,
-          `http://localhost:5001/api/rooms/hotels/${id}`,
-          `http://localhost:5001/api/reviews/hotels/${id}`
+          `${window.BASE_URL}/hotels/${id}`,
+          `${window.BASE_URL}/rooms/hotels/${id}`,
+          `${window.BASE_URL}/reviews/hotels/${id}`
         ];
 
         if (userId) {
-          urls.push(`http://localhost:5001/api/bookings/check-status?user=${userId}&hotel=${id}`);
+          urls.push(`${window.BASE_URL}/bookings/check-status?user=${userId}&hotel=${id}`);
         }
 
         const responses = await Promise.all(urls.map(url => fetch(url)));
@@ -102,7 +102,7 @@ const handlePostReview = async (e) => {
   
   setSubmitting(true);
   try {
-    const response = await fetch("http://localhost:5001/api/reviews", {
+    const response = await fetch(`${window.BASE_URL}/reviews`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
@@ -121,13 +121,12 @@ const handlePostReview = async (e) => {
       setNewRating(5);
 
       // --- KHÚC QUAN TRỌNG ĐỂ NHẢY SỐ SAO ---
-      // 1. Refresh danh sách review (cái này Huy làm rồi)
-      const resReviews = await fetch(`http://localhost:5001/api/reviews/hotels/${id}`);
+      const resReviews = await fetch(`${window.BASE_URL}/reviews/hotels/${id}`);
       const jsonReviews = await resReviews.json();
       setHotelReviews(jsonReviews.data || []);
 
       // 2. Lấy lại thông tin Hotel mới nhất (để lấy cái 'rating' vừa được Backend tính lại)
-      const resHotel = await fetch(`http://localhost:5001/api/hotels/${id}`);
+      const resHotel = await fetch(`${window.BASE_URL}/hotels/${id}`);
       const jsonHotel = await resHotel.json();
       if (jsonHotel.success) {
         setHotel(jsonHotel.data); // Cập nhật state hotel -> UI tự render lại số sao mới
@@ -149,7 +148,7 @@ const handlePostReview = async (e) => {
     if (!window.confirm("Bạn có chắc chắn muốn xóa đánh giá này không?")) return;
 
     try {
-      const response = await fetch(`http://localhost:5001/api/reviews/${reviewId}`, {
+      const response = await fetch(`${window.BASE_URL}/reviews/${reviewId}`, {
         method: "DELETE",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ userId: userId })
@@ -161,7 +160,7 @@ const handlePostReview = async (e) => {
         setHotelReviews(prev => prev.filter(rev => rev._id !== reviewId));
         
         // Cập nhật lại thông số khách sạn (số sao trung bình)
-        const resHotel = await fetch(`http://localhost:5001/api/hotels/${id}`);
+        const resHotel = await fetch(`${window.BASE_URL}/hotels/${id}`);
         const hotelJson = await resHotel.json();
         setHotel(hotelJson.data);
       } else {

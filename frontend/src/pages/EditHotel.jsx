@@ -26,7 +26,7 @@ const EditHotel = () => {
   useEffect(() => {
     const fetchHotel = async () => {
       try {
-        const res = await fetch(`http://localhost:5001/api/hotels/${id}`);
+       const res = await fetch(`${window.BASE_URL}/hotels/${id}`);
         const data = await res.json();
         const hotel = data.data;
 
@@ -69,7 +69,7 @@ const EditHotel = () => {
         if (img) data.append(`image${index + 1}`, img);
       });
 
-      const res = await fetch(`http://localhost:5001/api/hotels/${id}`, {
+      const res = await fetch(`${window.BASE_URL}/hotels/${id}`, {
         method: "PUT",
         body: data,
       });

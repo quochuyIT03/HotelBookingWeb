@@ -17,4 +17,8 @@ export default defineConfig({
       transformMixedEsModules: true,
     },
   },
+<<<<<<< HEAD
 })
+=======
+})
+>>>>>>> 86ef864 (Fix: Replace localhost with BASE_URL for deployment)

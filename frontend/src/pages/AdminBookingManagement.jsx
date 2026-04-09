@@ -31,7 +31,7 @@ const AdminBookingManagement = () => {
   const fetchBookings = useCallback(async () => {
     setLoading(true);
     try {
-      const res = await fetch("http://localhost:5001/api/bookings");
+      const res = await fetch(`${window.BASE_URL}/bookings`);
       const data = await res.json();
       setBookings(data.data || []);
     } catch (error) {
@@ -46,8 +46,8 @@ const AdminBookingManagement = () => {
     fetchBookings();
     const loadInitialData = async () => {
       const [uRes, hRes] = await Promise.all([
-        fetch("http://localhost:5001/api/users"),
-        fetch("http://localhost:5001/api/hotels")
+        fetch(`${window.BASE_URL}/users`),
+        fetch(`${window.BASE_URL}/hotels`)
       ]);
       const uData = await uRes.json();
       const hData = await hRes.json();
@@ -106,7 +106,7 @@ const AdminBookingManagement = () => {
 
   const handleHotelChange = async (hotelId) => {
     setForm(prev => ({ ...prev, hotel: hotelId, room: "", roomNumber: "", totalPrice: 0 }));
-    const res = await fetch(`http://localhost:5001/api/rooms/hotels/${hotelId}`);
+    const res = await fetch(`${window.BASE_URL}/rooms/hotels/${hotelId}`);
     const data = await res.json();
     setRooms(data.data || []);
   };
@@ -119,7 +119,7 @@ const AdminBookingManagement = () => {
 
   const handleDelete = async (id) => {
     if (!window.confirm("Xác nhận xóa đặt phòng này?")) return;
-    const res = await fetch(`http://localhost:5001/api/bookings/${id}`, { method: "DELETE" });
+    const res = await fetch(`${window.BASE_URL}/bookings/${id}`, { method: "DELETE" });
     if (res.ok) {
       setBookings(prev => prev.filter((b) => b._id !== id));
       toast.success("Đã xóa dữ liệu thành công");
@@ -127,7 +127,7 @@ const AdminBookingManagement = () => {
   };
 
   const handleUpdateStatus = async (id, status) => {
-    await fetch(`http://localhost:5001/api/bookings/${id}`, {
+    await fetch(`${window.BASE_URL}/bookings/${id}`, {
       method: "PUT",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ status }),

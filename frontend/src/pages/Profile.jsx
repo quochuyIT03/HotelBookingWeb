@@ -25,7 +25,7 @@ const Profile = () => {
     if (!userData?._id) return;
     const loadStats = async () => {
       try {
-        const res = await axios.get(`http://localhost:5001/api/users/${userData._id}/stats`);
+        const res = await axios.get(`${window.BASE_URL}/users/${userData._id}/stats`);
         setStats({
           bookings: res.data.bookings || 0,
           reviews: res.data.reviews || 0,
@@ -53,7 +53,7 @@ const Profile = () => {
   const handleUpdate = async () => {
     setIsUpdating(true);
     try {
-      const res = await axios.put(`http://localhost:5001/api/users/${userData._id}`, {
+      const res = await axios.put(`${window.BASE_URL}/users/${userData._id}`, {
         username,
         avatar,
         profile: { fullname, phone, location }

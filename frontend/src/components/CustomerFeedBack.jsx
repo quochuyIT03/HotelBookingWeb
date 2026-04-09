@@ -8,7 +8,7 @@ const CustomerFeedBack = () => {
   useEffect(() => {
     const fetchPinnedReviews = async () => {
       try {
-        const res = await axios.get("http://localhost:5001/api/reviews/pinned");
+        const res = await axios.get(`${window.BASE_URL}/reviews/pinned`);
         if (res.data.success) {
           setReviews(res.data.data);
         }

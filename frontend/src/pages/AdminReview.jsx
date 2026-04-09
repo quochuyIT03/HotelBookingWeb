@@ -29,7 +29,7 @@ const AdminReviews = () => {
 
   const fetchReviews = async () => {
     try {
-      const res = await axios.get("http://localhost:5001/api/reviews");
+      const res = await axios.get(`${window.BASE_URL}/reviews`);
       if (res.data.success) setReviews(res.data.data);
     } catch (error) {
       console.log(error);
@@ -83,7 +83,7 @@ const AdminReviews = () => {
         onClick: async () => {
           try {
             const adminId = JSON.parse(localStorage.getItem("user"))._id;
-            await axios.delete(`http://localhost:5001/api/reviews/${id}`, {
+            await axios.delete(`${window.BASE_URL}/reviews/${id}`, {
               data: { userId: adminId },
             });
             setReviews((prev) => prev.filter((item) => item._id !== id));
@@ -101,7 +101,7 @@ const AdminReviews = () => {
   const handleTogglePin = async (id) => {
     try {
       const res = await axios.patch(
-        `http://localhost:5001/api/reviews/pin/${id}`,
+         `${window.BASE_URL}/reviews/pin/${id}`,
       );
       if (res.data.success) {
         setReviews((prev) =>

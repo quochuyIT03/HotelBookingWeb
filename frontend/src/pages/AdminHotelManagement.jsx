@@ -25,7 +25,7 @@ const AdminHotelManagement = () => {
   // ================= FETCH DATA =================
   const fetchHotels = async () => {
     try {
-      const res = await fetch("http://localhost:5001/api/hotels");
+      const res = await fetch(`${window.BASE_URL}/hotels`);
       const data = await res.json();
       setHotels(data.data);
     } catch (error) {
@@ -76,7 +76,7 @@ const AdminHotelManagement = () => {
   const handleDelete = async (id) => {
     if (!window.confirm("Xác nhận xóa khách sạn này?")) return;
     try {
-      const res = await fetch(`http://localhost:5001/api/hotels/${id}`, { method: "DELETE" });
+      const res = await fetch(`${window.BASE_URL}/hotels/${id}`, { method: "DELETE" });
       if (res.ok) {
         setHotels((prev) => prev.filter((h) => h._id !== id));
         toast.success("Đã xóa khách sạn thành công");

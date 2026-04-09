@@ -27,8 +27,8 @@ export default function HotelDetail() {
     const fetchData = async () => {
       try {
         const [hotelRes, roomsRes] = await Promise.all([
-          fetch(`http://localhost:5001/api/hotels/${id}`),
-          fetch(`http://localhost:5001/api/rooms/hotels/${id}`)
+          fetch(`${window.BASE_URL}/hotels/${id}`),
+          fetch(`${window.BASE_URL}/rooms/hotels/${id}`)
         ]);
         
         const hotelData = await hotelRes.json();

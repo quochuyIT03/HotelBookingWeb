@@ -33,7 +33,7 @@ const MyBookings = () => {
         setLoading(true);
         // Lưu ý: Thay đổi URL này khớp với API Backend của bạn (ví dụ lấy theo User ID)
         const res = await fetch(
-          `http://localhost:5001/api/bookings/users/${user._id}`,
+          `${window.BASE_URL}/bookings/users/${user._id}`,
         );
         const data = await res.json();
 

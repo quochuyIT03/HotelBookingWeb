@@ -39,7 +39,7 @@ const Checkout = () => {
         try {
           // SỬA TẠI ĐÂY: rooms -> room (để khớp với req.query của Backend)
           const res = await fetch(
-            `http://localhost:5001/api/bookings/check-availability?room=${room._id}&checkIn=${checkIn}&checkOut=${checkOut}`,
+             `${window.BASE_URL}/bookings/check-availability?room=${room._id}&checkIn=${checkIn}&checkOut=${checkOut}`,
           );
           const result = await res.json();
 
@@ -94,7 +94,7 @@ const Checkout = () => {
         user: userData._id,
       };
 
-      const res = await fetch("http://localhost:5001/api/bookings", {
+       const res = await fetch(`${window.BASE_URL}/bookings`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(bookingData),

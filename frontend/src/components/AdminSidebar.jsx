@@ -44,7 +44,7 @@ const AdminSidebar = () => {
         if (!getUser?._id) return;
 
         const res = await fetch(
-          `http://localhost:5001/api/users/${getUser._id}`,
+          `${window.BASE_URL}/users/${getUser._id}`,
           {
             headers: {
               Authorization: `Bearer ${token}`,
