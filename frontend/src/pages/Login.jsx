@@ -1,23 +1,22 @@
 import { loginUser } from "@/api/auth";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { Eye } from "lucide-react";
+import { Eye, EyeOff } from "lucide-react";
 import React, { useState } from "react";
 import { toast } from "sonner";
 
 const Login = () => {
-  const [email, setEmail] = useState(""); 
+  const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [showPassword, setShowPassword] = useState(false);
 
   const handleLogin = async () => {
-
     if (!email || !password) {
       toast.error("Vui lòng nhập email và mật khẩu");
       return;
     }
 
     try {
-
       const res = await loginUser({ email, password });
 
       // Lấy user từ backend
@@ -26,7 +25,6 @@ const Login = () => {
       // Lưu user
       localStorage.setItem("user", JSON.stringify(user));
 
-
       // Lưu token nếu có
       if (res.data.token) {
         localStorage.setItem("token", res.data.token);
@@ -34,28 +32,21 @@ const Login = () => {
 
       toast.success("Login thành công!");
 
-      if(user.role === "admin" || user.role === "superadmin"){
-        window.location.href = "/admin"
-      }else{
+      if (user.role === "admin" || user.role === "superadmin") {
+        window.location.href = "/admin";
+      } else {
         window.location.href = "/";
       }
-
-      
-
     } catch (error) {
-
       console.log(error);
 
       toast.error("Sai email hoặc mật khẩu");
-
     }
-
   };
 
   return (
     <>
       <div className="min-h-screen w-full bg-white relative">
-
         <div
           className="absolute inset-0 z-0"
           style={{
@@ -67,9 +58,7 @@ const Login = () => {
         />
 
         <div className="min-h-screen flex items-center justify-center bg-linear-to-br from-indigo-500 via-purple-500 to-pink-500">
-
           <div className="w-full max-w-md backdrop-blur-xl bg-white/10 border border-white/20 p-10 rounded-3xl shadow-2xl">
-
             <h2 className="text-3xl font-bold text-center text-white">
               Welcome Back
             </h2>
@@ -88,17 +77,26 @@ const Login = () => {
 
             <div className="relative mb-5">
               <Input
-                type="password"
+                type={showPassword ? "text" : "password"}
                 placeholder="Password"
                 className="bg-white/20 border-none text-white placeholder:text-white/70 h-12 pr-10"
                 onChange={(e) => setPassword(e.target.value)}
               />
-              <Eye className="absolute right-3 top-3 text-white/70 w-5 h-5 cursor-pointer"/>
+              <div
+                className="absolute right-3 top-3 text-white/70 cursor-pointer hover:text-white transition-colors"
+                onClick={() => setShowPassword(!showPassword)}
+              >
+                {showPassword ? (
+                  <EyeOff className="w-5 h-5" /> // Nếu đang hiện thì hiện icon gạch chéo
+                ) : (
+                  <Eye className="w-5 h-5" /> // Nếu đang ẩn thì hiện icon con mắt
+                )}
+              </div>
             </div>
 
             <div className="flex justify-between text-sm text-white/80 mb-6">
               <label className="flex items-center gap-2">
-                <input type="checkbox"/>
+                <input type="checkbox" />
                 Remember me
               </label>
 
@@ -119,7 +117,6 @@ const Login = () => {
             </div>
 
             <div className="grid grid-cols-2 gap-4">
-
               <button className="bg-white/20 rounded-lg h-11 flex items-center justify-center gap-2 text-white">
                 <img
                   src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/google/google-original.svg"
@@ -135,7 +132,6 @@ const Login = () => {
                 />
                 GitHub
               </button>
-
             </div>
 
             <p className="text-center text-white/70 mt-6">
@@ -147,7 +143,6 @@ const Login = () => {
                 Sign up
               </span>
             </p>
-
           </div>
         </div>
       </div>

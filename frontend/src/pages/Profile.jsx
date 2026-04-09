@@ -43,7 +43,7 @@ const Profile = () => {
   const handleAvatarChange = (e) => {
     const file = e.target.files[0];
     if (!file) return;
-    if (file.size > 2 * 1024 * 1024) return toast.error("Ảnh quá lớn, vui lòng chọn ảnh dưới 2MB");
+    if (file.size > 5 * 1024 * 1024) return toast.error("Ảnh quá lớn, vui lòng chọn ảnh dưới 2MB");
 
     const reader = new FileReader();
     reader.onloadend = () => setAvatarUrl(reader.result);

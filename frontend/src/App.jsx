@@ -27,6 +27,7 @@ import AdminReviews from "./pages/AdminReview";
 import Contact from "./pages/Contact";
 import FavoritePage from "./pages/FavoritePage";
 import AboutUs from "./pages/AboutUs";
+import AdminProtectedRoute from "./components/AdminProtectedRoute";
 
 function App() {
   return (
@@ -61,20 +62,22 @@ function App() {
 
           <Route path="/about" element={<AboutUs />} />
 
-          <Route path="/admin" element={<AdminSidebar />}>
-            <Route index element={<AdminPage />} />
-            <Route path="usersManagement" element={<AdminUserManagement/>}/>
-            <Route path="adminProfile" element={<AdminProfile/>}/>
-            <Route path="hotelsManagement" element={<AdminHotelManagement/>}/>
-            <Route path="bookingsManagement" element={<AdminBookingManagement/>}/>
-            <Route path="reviewsManagement" element={<AdminReviews/>}/>
-            <Route path="adminSettings" element={<AdminSettings/>}/>
-            <Route path="addHotel" element={<AddHotel/>}/>
-            <Route path="editHotel/:id" element={<EditHotel/>}/>
-            <Route path="roomsManagement" element={<AdminRoomManagement/>}/>
-            <Route path="hotels/:id" element={<HotelDetail />}/>
-            <Route path="hotels/:id/rooms/add" element={<AddRoom />}/>
-            <Route path="rooms/edit/:id" element={<EditRoom/>}/>
+          <Route element={<AdminProtectedRoute/>}>
+              <Route path="/admin" element={<AdminSidebar />}>
+                <Route index element={<AdminPage />} />
+                <Route path="usersManagement" element={<AdminUserManagement/>}/>
+                <Route path="adminProfile" element={<AdminProfile/>}/>
+                <Route path="hotelsManagement" element={<AdminHotelManagement/>}/>
+                <Route path="bookingsManagement" element={<AdminBookingManagement/>}/>
+                <Route path="reviewsManagement" element={<AdminReviews/>}/>
+                <Route path="adminSettings" element={<AdminSettings/>}/>
+                <Route path="addHotel" element={<AddHotel/>}/>
+                <Route path="editHotel/:id" element={<EditHotel/>}/>
+                <Route path="roomsManagement" element={<AdminRoomManagement/>}/>
+                <Route path="hotels/:id" element={<HotelDetail />}/>
+                <Route path="hotels/:id/rooms/add" element={<AddRoom />}/>
+                <Route path="rooms/edit/:id" element={<EditRoom/>}/>
+              </Route>
           </Route>
         </Routes>
       </BrowserRouter>

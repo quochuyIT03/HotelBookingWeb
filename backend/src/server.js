@@ -11,17 +11,9 @@ import { connectDatabase } from "./config/db.js";
 import dotenv from 'dotenv'
 import cors from 'cors'
 import { cloudinary } from "./config/cloudinary.js";
+import path from "path"
 
 dotenv.config();
-
-// cloudinary.uploader dùng để test cloudinary
-//   .upload("https://res.cloudinary.com/demo/image/upload/sample.jpg")
-//   .then((res) => {
-//     console.log("✅ CLOUDINARY OK:", res.secure_url);
-//   })
-//   .catch((err) => {
-//     console.log("❌ CLOUDINARY ERROR:", err);
-//   });
 
 const app = express(); 
 
@@ -31,7 +23,13 @@ app.use(cors({
   credentials: true
 }));
 
+if(process.env.NODE_ENV !== "production"){
+  app.use(cors({origin: "http://localhost:5173"}))
+}
+
 const PORT = process.env.PORT || 5001;
+
+const __dirname = path.resolve(); 
 
 app.use(express.json({ limit: "10mb" }));
 app.use(express.urlencoded({ limit: "10mb", extended: true }))
@@ -70,3 +68,11 @@ app.use((err, req, res, next) => {
     full: err
   });
 });
+
+if(process.env.NODE_ENV === 'production'){
+  app.use(express.static(path.join(__dirname, "../frontend/dist")))
+
+app.get("*", (req, res) => {
+  res.sendFile(path.join(__dirname, "../frontend/dist/index.html"))
+})
+}
