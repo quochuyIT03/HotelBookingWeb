@@ -19,7 +19,11 @@ const app = express();
 
 // middlewares
 app.use(cors({
-  origin: "*",
+  // Liệt kê các địa chỉ được phép truy cập
+  origin: [
+    "http://localhost:5173",                 // Khi chạy máy ảo local
+    "https://hotelbookingweb-1.onrender.com" // Khi chạy trên Render
+  ],
   credentials: true
 }));
 

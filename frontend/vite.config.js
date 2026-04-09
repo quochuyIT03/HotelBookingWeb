@@ -1,7 +1,7 @@
-import path from "path"
-import tailwindcss from "@tailwindcss/vite"
-import react from "@vitejs/plugin-react"
-import { defineConfig } from "vite"
+import path from "path";
+import tailwindcss from "@tailwindcss/vite";
+import react from "@vitejs/plugin-react";
+import { defineConfig } from "vite";
 
 // https://vite.dev/config/
 export default defineConfig({
@@ -11,14 +11,10 @@ export default defineConfig({
       // eslint-disable-next-line no-undef
       "@": path.resolve(__dirname, "./src"),
     },
-  }, 
+  },
   build: {
     commonjsOptions: {
       transformMixedEsModules: true,
     },
   },
-<<<<<<< HEAD
-})
-=======
-})
->>>>>>> 86ef864 (Fix: Replace localhost with BASE_URL for deployment)
+});
